@@ -7,15 +7,20 @@ import { Menu, MenuList, MenuButton, MenuItem } from "@reach/menu-button";
 export let name = "Basic";
 
 export let Example = () => (
-  <Menu>
-    <MenuButton id="example-button">
-      Actions <span aria-hidden="true">▾</span>
-    </MenuButton>
-    <MenuList>
-      <MenuItem onSelect={action("Download")}>Download</MenuItem>
-      <MenuItem onSelect={action("Copy")}>Create a Copy</MenuItem>
-      <MenuItem onSelect={action("Mark as Draft")}>Mark as Draft</MenuItem>
-      <MenuItem onSelect={action("Delete")}>Delete</MenuItem>
-    </MenuList>
-  </Menu>
+  <>
+    <div style={{ paddingTop: "500px" }} />
+    <Menu>
+      <MenuButton id="example-button">
+        Actions <span aria-hidden="true">▾</span>
+      </MenuButton>
+      <MenuList>
+        <MenuItem onSelect={action("Download")}>Download</MenuItem>
+        <hr />
+        <MenuItem onSelect={action("Copy")}>Create a Copy</MenuItem>
+        <MenuItem onSelect={action("Copy")}>Create a Copy</MenuItem>
+        <MenuItem onSelect={action("Mark as Draft")}>Mark as Draft</MenuItem>
+        <MenuItem onSelect={action("Delete")}>Delete</MenuItem>
+      </MenuList>
+    </Menu>
+  </>
 );

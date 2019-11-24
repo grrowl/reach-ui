@@ -370,13 +370,11 @@ if (__DEV__) {
 }
 ////////////////////////////////////////////////////////////////////////////////
 
-const focusableChildrenTypes = [MenuItem, MenuLink];
-
-const isFocusableChildType = child =>
-  focusableChildrenTypes.includes(child.type);
+const isFocusableNode = node => console.log("node", node) || true;
+// focusableChildrenTypes.includes(child.type);
 
 const getFocusableMenuChildren = childrenArray => {
-  const focusable = childrenArray.filter(child => isFocusableChildType(child));
+  const focusable = childrenArray.filter(child => isFocusableNode(child));
   return focusable;
 };
 
@@ -387,7 +385,13 @@ export const MenuItems = forwardRef(function MenuItems(
 ) {
   const { state, setState, refs } = useContext(MenuContext);
   const clones = Children.toArray(children).filter(Boolean);
-  const focusableChildren = getFocusableMenuChildren(clones);
+  const focusableChildren = getFocusableMenuChildren(clones, refs.items);
+
+  console.log(
+    "children",
+    /* clones, refs.items, */ clones.length,
+    refs.items.length
+  );
 
   return (
     <div
@@ -429,16 +433,12 @@ export const MenuItems = forwardRef(function MenuItems(
       })}
     >
       {clones.map(child => {
-        if (isFocusableChildType(child)) {
-          const focusIndex = focusableChildren.indexOf(child);
+        const focusIndex = focusableChildren.indexOf(child);
 
-          return cloneElement(child, {
-            _index: focusIndex,
-            _ref: node => (refs.items[focusIndex] = node)
-          });
-        }
-
-        return child;
+        return cloneElement(child, {
+          _index: focusIndex,
+          _ref: node => (refs.items[focusIndex] = node)
+        });
       })}
     </div>
   );
